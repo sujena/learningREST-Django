@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<style>
+
+</style>
+<body>
+    View: &nbsp; &nbsp; &nbsp; <a href="{% url 'viewList' %}">View all data </a>
+    <form action="{% url 'searchData' %}" method="GET">
+        {% csrf_token %}
+        <div >
+            <label for="name">Search:</label> &nbsp;
+            <input id="name" type="text" name="pk" placeholder="Search.." required/>
+            <button type="submit" >SEARCH</button>
+        </div>
+    </form>
+<br><br><br>
+    <form action="{% url 'createData' %}" method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="add">Create Data:</label> &nbsp;
+            <textarea rows="10" cols="30"id="add" type="json" name="pk2" placeholder="Search.." required></textarea>
+            <button type="submit" >Create</button>
+        </div>
+    </form>
+
+    <br><br><br>
+        <form action="{% url 'updateData' %}" method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="code">Search:</label> &nbsp;
+            <input id="code" type="text" name="pk4" placeholder="Search.." required/><br>
+            <label for="update">Data:</label> &nbsp;
+            <textarea rows="10" cols="30"id="update" type="json" name="pk5" placeholder="Search.." required></textarea>
+            <button type="submit" >Update</button>
+        </div>
+    </form>
+
+    <br><br><br>
+    <form action="{% url 'deleteData' %}" method="GET">
+        {% csrf_token %}
+        <div >
+            <label for="del">Delete:</label> &nbsp;
+            <input id="del" type="text" name="pk3" placeholder="Search.." required/>
+            <button type="submit" >Delete</button>
+        </div>
+    </form>
+<script>
+function updateData(){
+    var code= document.getElementById('code');
+    var update =document.getElementById('update');
+    var obj=JSON.parse(JSON.stringify(update));
+    url="http://127.0.0.1:8000/api/data-update/"+code+"/";
+
+    const request= new XMLHttpRequest();
+    request.open("POST", url, true);
+    request.setRequestHeader("Content-type", "application/json");
+    request.send(obj);
+    request.onload=()=>{
+        console.log(request);
+        if(request.status==200){
+        console.log(JSON.parse(request.response));
+        }
+        else{
+            console.log('error ${request.status}');
+        }
+    }
+}
+</script>
+</body>
+
+</html>

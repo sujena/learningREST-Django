@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<style>
+</style>
+<body>
+{% for x in data %}
+<table>
+     {% for k,v in x.items %}
+    <tr>
+        <td>{{k}}</td>
+        <td>{{v}}</td>
+        </tr>
+    </td></tr>
+      {% endfor %}
+</table>
+<br><br>
+{% endfor %}
+</body>
+</html>
